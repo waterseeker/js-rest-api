@@ -1,8 +1,8 @@
 import session from './session';
 import user from './user';
-import message from './message';
+import article from './articles';
 export default {
   session,
   user,
-  message,
+  article,
 };

@@ -1,9 +1,11 @@
-import { Router } from 'express';
+module.exports = (function() {
+    'use strict';
 
-const router = Router();
+    const sessionRoutes = require('express').Router();
 
-router.get('/', (req, res) => {
-    return res.send(req.context.models.users[req.context.me.id]);
-});
+    sessionRoutes.get('/', (req, res) => {
+        return res.send(req.context.db.users[req.context.me.id]); // should authentication go on here?
+    });
 
-export default router;
+    return sessionRoutes;
+})();

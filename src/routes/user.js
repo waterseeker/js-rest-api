@@ -1,21 +1,35 @@
-import { Router } from 'express';
+import db from '../models/db.js'
+import { User } from '../index'
 
-const router = Router();
+module.exports = (function() {
+    'use strict';
+    
+    const userRoutes = require('express').Router();
+    const bodyParser = require('body-parser').json();
 
-router.get('/', (req, res) => {
-    return res.send(Object.values(req.context.models.users));
-});
-
-router.get('/:userId', (req, res) => {
-    return res.send(req.context.models.users[req.params.userId]);
-});
-
-router.post('/', (req, res) => {
-    return res.send('POST HTTP method on user resource.')
-});
-
-router.delete('/:userId', (req, res) => {
-    return res.send(`DELETE HTTP method on user/${req.padams.userId} resource.`);
-});
-
-export default router;
+    userRoutes.post('/api/user', bodyParser, (req, res) => {
+        if (Object.keys(req.body).length === 0) {
+            return res.status(400).send();
+        }
+        // create a new user
+        const user = new User(req.body.user_id, req.body.login, req.body.password);
+        db.users.push(user);
+        return res.status(201).send();
+    });
+    
+    userRoutes.post('/api/articles', (req, res) => {
+        const article = {
+            article_id: req.body.article_id,
+            title: req.body.title,
+            content: req.body.content,
+            visibility: req.body.visibility,
+            user_id: req.body.user_id
+        };
+    
+        req.context.db.articles[id] = article;
+    
+        return res.send(article);
+    });
+    
+    return userRoutes;
+})();

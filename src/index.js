@@ -1,27 +1,38 @@
-import uuidv4 from 'uuid/v4';
 import 'dotenv/config';
 import cors from 'cors';
-import models from './models';
-import routes from './routes';
+import db from './models/db';
 import express from 'express';
-console.log('Hello World! From nodemon.');
-console.log(process.env.MY_SECRET);
+
+
 
 const app = express();
+const articleRoutes = require('./routes/articles');
+const userRoutes = require('./routes/user');
+const sessionRoutes = require('./routes/session');
+// const authenticateRoutes = require('./routes/authenticate');
 
+app.use('/articleRoutes', articleRoutes);
+app.use('/userRoutes', userRoutes);
+app.use('/sessionRoutes', sessionRoutes);
+// app.use('/authenticateRoutes', authenticateRoutes);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/session', routes.session);
-app.use('/users', routes.user);
-app.use('/messages', routes.message);
+
+export class User {
+    constructor(user_id, login, password) {
+      this.user_id = user_id;
+      this.login = login;
+      this.password = password;
+    }
+  };
 
 //example of middleware
-//this will expose the user in every route
+//this will expose the user in every route as 'me' through context
 app.use((req, res, next) => {
     req.context = {
-        models,
-        me: models.users[1],
+        db,
+        me: db.users[1], // instead of being hard-coded, this should be the authenticated user. 
     };
     next();
 });
@@ -29,19 +40,3 @@ app.use((req, res, next) => {
 app.listen(3000, () =>
     console.log(`App is listening on ${process.env.PORT}.`),
 );
-//root url
-app.get('/', (req, res) => {   
-    res.send('Received a GET HTTP method.')
-});
-
-app.post('/', (req, res) => {
-    res.send('Received a POST HTTP method.')
-});
-
-app.put('/', (req, res) => {
-    res.send('Received a PUT HTTP method.')
-});
-
-app.delete('/', (req, res) => {
-    res.send('Received a DELETE HTTP method.')
-});
