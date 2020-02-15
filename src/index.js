@@ -9,12 +9,15 @@ const app = express();
 const articleRoutes = require('./routes/articles');
 const userRoutes = require('./routes/user');
 const sessionRoutes = require('./routes/session');
-// const authenticateRoutes = require('./routes/authenticate');
+const authenticateRoutes = require('./routes/authenticate');
+const logoutRoutes = require('./routes/logout');
 
-app.use('/articleRoutes', articleRoutes);
-app.use('/userRoutes', userRoutes);
-app.use('/sessionRoutes', sessionRoutes);
-// app.use('/authenticateRoutes', authenticateRoutes);
+app.use('/', articleRoutes);
+app.use('/', userRoutes);
+app.use('/', sessionRoutes);
+app.use('/', authenticateRoutes);
+app.use('/', logoutRoutes);
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -24,6 +27,7 @@ export class User {
       this.user_id = user_id;
       this.login = login;
       this.password = password;
+      this.tokens = [];
     }
   };
 
