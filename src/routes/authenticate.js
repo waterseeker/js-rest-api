@@ -27,6 +27,21 @@ module.exports = (function() {
             let token = uuidv4();
             authenticatedUser.tokens.push(token);
             console.log(db.users);
+
+            // need a way to store user tokens so they can be modified and queried later for authentication
+
+            // Attempt 1, localStorage
+            // if there was a frontend to this app, you could use localStorage for storing the tokens
+            // however this was a backend coding challenge so there is no frontend...
+            // also, using localStorage to store sensitive info like jwt tokens, user info, etc is unsafe.fail
+
+            // if (window.localStorage.authentication-header) {
+            //     window.localStorage.authentication-header.concat(" " + token);
+            // } else {
+            //     window.localStorage.setItem("authentication-header", token);
+            // }
+            // console.log(window.localStorage.authentication-header);
+            
             res.set('authentication-header', token);
             return res.status(200).send({
                 "token": token,
