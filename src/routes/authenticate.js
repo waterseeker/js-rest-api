@@ -30,7 +30,7 @@ module.exports = (function() {
 
             // need a way to store user tokens so they can be modified and queried later for authentication
 
-            // Attempt 1, localStorage
+            // Approach 1, localStorage
             // if there was a frontend to this app, you could use localStorage for storing the tokens
             // however this was a backend coding challenge so there is no frontend...
             // also, using localStorage to store sensitive info like jwt tokens, user info, etc is unsafe.fail
@@ -41,7 +41,16 @@ module.exports = (function() {
             //     window.localStorage.setItem("authentication-header", token);
             // }
             // console.log(window.localStorage.authentication-header);
-            
+
+            // Approach 2 sessionStorage has the same problem of not being usable when there is no frontend. 
+
+            // Approach 3 using the express-session npm package
+            if (req.session.authenticationHeader) {
+                req.session.authenticationHeader = req.session.authenticationHeader + " " + token;
+            } else {
+                req.session.authenticationHeader = token;
+            }
+
             res.set('authentication-header', token);
             return res.status(200).send({
                 "token": token,

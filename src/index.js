@@ -2,25 +2,35 @@ import 'dotenv/config';
 import cors from 'cors';
 import db from './models/db';
 import express from 'express';
+import MemoryStore from 'express-session';
 
 
 
 const app = express();
+// const cors = require('cors');
+app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
 const articleRoutes = require('./routes/articles');
 const userRoutes = require('./routes/user');
-const sessionRoutes = require('./routes/session');
 const authenticateRoutes = require('./routes/authenticate');
 const logoutRoutes = require('./routes/logout');
+const session = require('express-session');
 
+app.use(session({
+  secret: 'would be stored in a .env file IRL',
+  resave: false,
+  saveUninitialized: true,
+}));
 app.use('/', articleRoutes);
 app.use('/', userRoutes);
-app.use('/', sessionRoutes);
 app.use('/', authenticateRoutes);
 app.use('/', logoutRoutes);
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// access the session object off of the req like so
+// req.session.authentication-header
 
 export class User {
     constructor(user_id, login, password) {
