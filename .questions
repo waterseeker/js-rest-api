@@ -1,0 +1,4 @@
+If a user can have multiple valid tokens, and logging the user out only invalidates one of them... how do you keep track of which token to
+    invalidate in the case of multiple tokens?
+
+How, if the token is being stored in session to persist across API calls, can you pass the token in the header (as required in the instructions)?

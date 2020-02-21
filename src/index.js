@@ -43,13 +43,13 @@ export class User {
 
 //example of middleware
 //this will expose the user in every route as 'me' through context
-app.use((req, res, next) => {
-    req.context = {
-        db,
-        me: db.users[1], // instead of being hard-coded, this should be the authenticated user. 
-    };
-    next();
-});
+// app.use((req, res, next) => {
+//     req.context = {
+//         db,
+//         me: db.users[1], // instead of being hard-coded, this should be the authenticated user. 
+//     };
+//     next();
+// });
 
 app.listen(3000, () =>
     console.log(`App is listening on ${process.env.PORT}.`),

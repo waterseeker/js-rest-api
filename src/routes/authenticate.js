@@ -22,13 +22,13 @@ module.exports = (function() {
         if (!authenticatedUser) {
             return res.status(401).send();
         }
-        // 200 if login and password match user in the db. send a token in the res.body like ...
+        // 200 if login and password match user in the db. send a token in the res.body.
         if (authenticatedUser) {
             let token = uuidv4();
             authenticatedUser.tokens.push(token);
 
             if (req.session.authenticationHeader) {
-                req.session.authenticationHeader = req.session.authenticationHeader + " " + token;
+                req.session.authenticationHeader = req.session.authenticationHeader + " " + token; console.log(req.session.authenticationHeader);
             } else {
                 req.session.authenticationHeader = token;
             }

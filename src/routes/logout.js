@@ -8,16 +8,18 @@ module.exports = (function() {
 
     logoutRoutes.post('/api/logout', bodyParser, (req, res) => {
         // 401 if the token is invalid
-        if ((Object.keys(!req.headers["authentication-header"]) || // if there is no token in header
-            !db.users.find(u => u.tokens.includes(req.headers.authentication-header)))) { // or if there is no user with that token
+        if (!req.session.authenticationHeader || // if there is no token in header
+            !db.users.find(u => u.tokens.includes(req.session.authenticationHeader))) { // or if there is no user with that token
                 res.status(401).send()
             }
-        let headerToken = req.headers["authentication-header"];
+        let headerToken = req.session["authenticationHeader"]; 
         let authenticatedUser = db.users.find(u => u.tokens.includes(headerToken));
-        if (authenticatedUser) {
-            // remove token from token array
-            const tokenIndex = authenticatedUser.indexOf(headerToken);
+        if (authenticatedUser) { console.log('Authenticated User found.');
+            // remove token from token array on the user
+            const tokenIndex = authenticatedUser.tokens.indexOf(headerToken);
             authenticatedUser.tokens.splice(tokenIndex, 1);
+            // remove token from session
+            req.session.authenticationHeader = '';
             // send 200
             res.status(200).send();
         }
