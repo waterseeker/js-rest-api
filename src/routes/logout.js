@@ -28,3 +28,5 @@ module.exports = (function() {
     
     return logoutRoutes;
 })();
+
+// can i just store the tokens on the user and not use session at all?

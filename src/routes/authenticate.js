@@ -23,6 +23,10 @@ module.exports = (function() {
             return res.status(401).send();
         }
         // 200 if login and password match user in the db. send a token in the res.body.
+        //
+        //TODO if there's already a token in the session, push it to the user tokens array and replace it with a new token
+        //
+        //
         if (authenticatedUser) {
             let token = uuidv4();
             authenticatedUser.tokens.push(token);

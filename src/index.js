@@ -2,7 +2,6 @@ import 'dotenv/config';
 import cors from 'cors';
 import db from './models/db';
 import express from 'express';
-import MemoryStore from 'express-session';
 
 
 
@@ -40,6 +39,19 @@ export class User {
       this.tokens = [];
     }
   };
+
+export class Article {
+  constructor (content, visibility, User, title, article_id){
+    this.content = content;
+    this.author = User.login;
+    this.visibility = visibility; // 'public' 'private' 'logged_in'
+    this.title = title;
+    this.article_id = article_id;
+  }
+  //public - the article is available publicly
+  //private - the article is only accessible to the creator
+  //logged_in - only users with a valid session can access the article
+}
 
 //example of middleware
 //this will expose the user in every route as 'me' through context
