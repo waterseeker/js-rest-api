@@ -42,7 +42,6 @@ module.exports = (function() {
                 "token": token,
             })
         }
-    });
-    
+    });    
     return authenticationRoutes;
 })();

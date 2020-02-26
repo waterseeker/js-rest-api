@@ -23,10 +23,7 @@ module.exports = (function() {
             // send 200
             res.status(200).send();
         }
-        console.log(headerToken);
     });
     
     return logoutRoutes;
 })();
-
-// can i just store the tokens on the user and not use session at all?
