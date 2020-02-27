@@ -1,6 +1,5 @@
 import 'dotenv/config';
 import cors from 'cors';
-import db from './models/db';
 import express from 'express';
 
 
@@ -41,9 +40,9 @@ export class User {
   };
 
 export class Article {
-  constructor (content, visibility, user, title, article_id){
+  constructor (content, visibility, login, title, article_id){
     this.content = content;
-    this.author = user.login;
+    this.author = login;
     this.visibility = visibility; // 'public' 'private' 'logged_in'
     // visibility settings:
     // public - the article is available to everyone
