@@ -2,11 +2,9 @@ import 'dotenv/config';
 import cors from 'cors';
 import express from 'express';
 
-
-
 const app = express();
 // const cors = require('cors');
-app.use(cors({credentials: true, origin: 'http://localhost:3000'}));
+app.use(cors({credentials: true, origin: `http://localhost:${process.env.PORT}`}));
 const articleRoutes = require('./routes/articles');
 const userRoutes = require('./routes/user');
 const authenticateRoutes = require('./routes/authenticate');
@@ -53,6 +51,6 @@ export class Article {
   }
 };
 
-app.listen(3000, () =>
-    console.log(`App is listening on ${process.env.PORT}.`),
+app.listen(process.env.PORT, () =>
+    console.log(`App is listening at http://localhost:${process.env.PORT}/`),
 );
