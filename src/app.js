@@ -3,9 +3,9 @@ import cors from 'cors';
 import express from 'express';
 import session from 'express-session';
 import apiRouter from './routes';
-import articleRouter from './routes/articles';
 
 const app = express();
+const PORT = process.env.PORT;
 
 app.use(
   session({
@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
     credentials: true,
-    origin: `http://localhost:${process.env.PORT}`
+    origin: `http://localhost:${PORT}`
   })
 );
 app.use('/api', apiRouter);
@@ -27,6 +27,6 @@ app.use('/api', apiRouter);
 // access the session object off of the req like so
 // req.session.authentication-header
 
-export const server = app.listen(process.env.PORT, () =>
-  console.log(`App is listening at http://localhost:${process.env.PORT}/`)
+export const server = app.listen(PORT, () =>
+  console.log(`App is listening at http://localhost:${PORT}/`)
 );
