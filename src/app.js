@@ -51,6 +51,6 @@ export class Article {
   }
 };
 
-app.listen(process.env.PORT, () =>
+export const server = app.listen(process.env.PORT, () =>
     console.log(`App is listening at http://localhost:${process.env.PORT}/`),
 );

@@ -1,5 +1,5 @@
 import uuidv4 from 'uuid/v4';
-import { Article } from '../index';
+import { Article } from '../app';
 import db from '../models/db.js';
 
 module.exports = (function() {

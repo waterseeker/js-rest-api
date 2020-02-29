@@ -1,5 +1,5 @@
 import db from '../models/db.js';
-import { User } from '../index';
+import { User } from '../app';
 import uuidv4 from 'uuid/v4';
 
 module.exports = (function() {
