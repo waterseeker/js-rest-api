@@ -31,10 +31,6 @@ articleRouter.get('/', (req, res) => {
 articleRouter.post('/', (req, res) => {
     const headerToken = req.session['authenticationHeader'];
     const authenticatedUser = db.users.find(u => u.tokens.includes(headerToken));
-    //* HTTP 400, if the body is empty
-    if (Object.keys(req.body).length === 0) {
-        return res.status(400).send();
-    }
     //* HTTP 401, if the provided token is invalid
     if (!authenticatedUser) {
         res.status(401).send();
