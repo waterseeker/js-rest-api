@@ -6,6 +6,7 @@ let articles = [{content: 'here is some content 1', visibility:'public', author:
                 {content: 'here is some content 4', visibility:'private', author:'43', title:'testArticle4', article_id:'articleid4'},
                 {content: 'here is some content 5', visibility:'logged_in', author:'42', title:'testArticle5', article_id:'articleid5'},
                 {content: 'here is some content 6', visibility:'public', author:'42', title:'testArticle6', article_id:'articleid6'}];
+let activeTokens = [];
 
 export default {
     users, 

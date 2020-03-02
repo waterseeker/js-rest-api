@@ -4,10 +4,6 @@ import uuidv4 from 'uuid/v4';
 const authenticateRouter = require('express').Router();
 
 authenticateRouter.post('/', (req, res) => {
-    // 400 if the body of the request is empty
-    if (Object.keys(req.body).length === 0) {
-        return res.status(400).send();
-    }
     //404 if there's no such user in the db
     const login_match = db.users.find(u => u.login === req.body.login);
     if (!login_match) {
