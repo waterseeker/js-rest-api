@@ -1,15 +1,14 @@
 import uuidv4 from 'uuid/v4';
 import Article from '../models/Article';
-import db from '../models/db.js';
 
 const articleRouter = require('express').Router();
 
 articleRouter.get('/', (req, res) => {
     // if user has a valid token, return 200 and all articles with 'public', 'logged_in', and 'private' where this user is the author
     const headerToken = req.session['authenticationHeader'];
-    const authenticatedUser = db.users.find(u => u.tokens.includes(headerToken));
+    const authenticatedUser = req.app.locals.db.users.find(u => u.tokens.includes(headerToken));
     if (authenticatedUser) {
-        const filteredArticles = db.articles.filter(
+        const filteredArticles = req.app.locals.db.articles.filter(
             article =>
                 article.visibility === 'public' ||
                 article.visibility === 'logged_in' ||
@@ -20,7 +19,7 @@ articleRouter.get('/', (req, res) => {
     }
     // if user has no token or if the token is invalid, only return 200 and public
     else {
-        const filteredArticles = db.articles.filter(
+        const filteredArticles = req.app.locals.db.articles.filter(
             article => article.visibility === 'public'
         );
         return res.status(200).send(Object.values(filteredArticles));
@@ -30,7 +29,7 @@ articleRouter.get('/', (req, res) => {
 //Only a user with a valid session can create articles.
 articleRouter.post('/', (req, res) => {
     const headerToken = req.session['authenticationHeader'];
-    const authenticatedUser = db.users.find(u => u.tokens.includes(headerToken));
+    const authenticatedUser = req.app.locals.db.users.find(u => u.tokens.includes(headerToken));
     //* HTTP 401, if the provided token is invalid
     if (!authenticatedUser) {
         res.status(401).send();
@@ -46,7 +45,7 @@ articleRouter.post('/', (req, res) => {
             req.body.title,
             article_id
         );
-        db.articles.push(article);
+        req.app.locals.db.articles.push(article);
         return res.status(201).send();
     }
 });

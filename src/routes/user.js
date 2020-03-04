@@ -1,4 +1,3 @@
-import db from '../models/db.js';
 import User from '../models/User';
 import uuidv4 from 'uuid/v4';
 
@@ -9,7 +8,7 @@ userRouter.post('/', (req, res) => {
     const user_id = uuidv4();
     // create a new user
     const user = new User(user_id, req.body.login, req.body.password);
-    db.users.push(user);
+    req.app.locals.db.users.push(user);
     req.session.user = user;
     return res.status(201).send();
 });

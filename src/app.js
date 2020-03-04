@@ -3,8 +3,11 @@ import cors from 'cors';
 import express from 'express';
 import session from 'express-session';
 import apiRouter from './routes';
+import db from './db'
 
 const app = express();
+
+app.locals.db = db;
 
 app.use(
     session({

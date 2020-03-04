@@ -1,16 +1,15 @@
-import db from '../models/db.js';
 import uuidv4 from 'uuid/v4';
 
 const authenticateRouter = require('express').Router();
 
 authenticateRouter.post('/', (req, res) => {
     //404 if there's no such user in the db
-    const login_match = db.users.find(u => u.login === req.body.login);
+    const login_match = req.app.locals.db.users.find(u => u.login === req.body.login);
     if (!login_match) {
         return res.status(404).send();
     }
     //401 if user exists in the db but the password given doesn't match what's in the db
-    const authenticatedUser = db.users.find(
+    const authenticatedUser = req.app.locals.db.users.find(
         u => u.login === req.body.login && u.password === req.body.password
     );
     if (!authenticatedUser) {
@@ -20,6 +19,8 @@ authenticateRouter.post('/', (req, res) => {
     if (authenticatedUser) {
         const token = uuidv4();
         authenticatedUser.tokens.push(token);
+        
+        req.app.locals.db.activeTokens[token] = authenticatedUser.user_id;
 
         if (req.session.authenticationHeader) {
             req.session.authenticationHeader =
