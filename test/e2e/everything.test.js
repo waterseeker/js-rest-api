@@ -197,7 +197,7 @@ test.serial('POST /api/articles - valid request gets 201', async t => {
             article_id: 'string',
             title: 'string',
             content: 'string',
-            visibility: 'public'
+            visibility: 'private'
         }
     });
 
@@ -243,6 +243,7 @@ test.serial('GET /api/articles - authenticated returns private articles', async 
         {content: 'here is some content 3', visibility:'logged_in', author:'42', title:'testArticle3', article_id:'articleid3'},
         {content: 'here is some content 4', visibility:'private', author:'43', title:'testArticle4', article_id:'articleid4'},
         {content: 'here is some content 5', visibility:'logged_in', author:'42', title:'testArticle5', article_id:'articleid5'},
-        {content: 'here is some content 6', visibility:'public', author:'42', title:'testArticle6', article_id:'articleid6'}
+        {content: 'here is some content 6', visibility:'public', author:'42', title:'testArticle6', article_id:'articleid6'},
+        {content: 'string', visibility: 'private', author: '43', title: 'string', article_id: 'string'},
     ])
 })

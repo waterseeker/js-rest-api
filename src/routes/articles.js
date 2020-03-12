@@ -1,54 +1,57 @@
-import uuidv4 from 'uuid/v4';
 import Article from '../models/Article';
-import db from '../models/db.js';
 
 const articleRouter = require('express').Router();
 
 articleRouter.get('/', (req, res) => {
+    let filteredArticles = [];
+
     // if user has a valid token, return 200 and all articles with 'public', 'logged_in', and 'private' where this user is the author
-    const headerToken = req.session['authenticationHeader'];
-    const authenticatedUser = db.users.find(u => u.tokens.includes(headerToken));
-    if (authenticatedUser) {
-        const filteredArticles = db.articles.filter(
+    if (res.locals.activeUserId) {
+        filteredArticles = req.app.locals.db.articles.filter(
             article =>
                 article.visibility === 'public' ||
                 article.visibility === 'logged_in' ||
                 (article.visibility === 'private' &&
-                    article.user === req.session.user.user_id)
+                    article.author === res.locals.activeUserId)
         );
-        return res.status(200).send(Object.values(filteredArticles));
     }
     // if user has no token or if the token is invalid, only return 200 and public
     else {
-        const filteredArticles = db.articles.filter(
+        filteredArticles = req.app.locals.db.articles.filter(
             article => article.visibility === 'public'
         );
-        return res.status(200).send(Object.values(filteredArticles));
     }
+
+    return res.status(200).json(filteredArticles);
 });
 
 //Only a user with a valid session can create articles.
 articleRouter.post('/', (req, res) => {
-    const headerToken = req.session['authenticationHeader'];
-    const authenticatedUser = db.users.find(u => u.tokens.includes(headerToken));
+    const VISIBILITY_OPTIONS = ['public', 'private', 'logged_in'];
+
     //* HTTP 401, if the provided token is invalid
-    if (!authenticatedUser) {
-        res.status(401).send();
+    if (!res.locals.activeUserId) {
+        return res.status(401).send();
     }
+
+    if (!VISIBILITY_OPTIONS.includes(req.body.visibility)) {
+        return res.status(400).json({
+            error: 'visibility must be one of "public", "private", or "logged_in"'
+        });
+    }
+
     //* HTTP 201, if the article has been created. The response body can be empty.
-    if (authenticatedUser) {
-        const article_id = uuidv4();
-        const user_id = req.session.user.login;
-        const article = new Article(
-            req.body.content,
-            req.body.visibility,
-            user_id,
-            req.body.title,
-            article_id
-        );
-        db.articles.push(article);
-        return res.status(201).send();
-    }
+    const article = new Article(
+        req.body.content,
+        req.body.visibility,
+        res.locals.activeUserId,
+        req.body.title,
+        req.body.article_id
+    );
+
+    req.app.locals.db.articles.push(article);
+    
+    return res.status(201).send();
 });
 
 export default articleRouter;
