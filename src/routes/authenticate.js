@@ -8,32 +8,20 @@ authenticateRouter.post('/', (req, res) => {
     if (!login_match) {
         return res.status(404).send();
     }
+    
     //401 if user exists in the db but the password given doesn't match what's in the db
-    const authenticatedUser = req.app.locals.db.users.find(
-        u => u.login === req.body.login && u.password === req.body.password
-    );
-    if (!authenticatedUser) {
+    if (login_match.password !== req.body.password) {
         return res.status(401).send();
     }
+    
     // 200 if login and password match the user in the db. Send a token in the res.body.
-    if (authenticatedUser) {
-        const token = uuidv4();
-        authenticatedUser.tokens.push(token);
-        
-        req.app.locals.db.activeTokens[token] = authenticatedUser.user_id;
+    const token = uuidv4();
+    
+    req.app.locals.db.activeTokens[token] = login_match.userId;
 
-        if (req.session.authenticationHeader) {
-            req.session.authenticationHeader =
-                req.session.authenticationHeader + ' ' + token;
-        } else {
-            req.session.authenticationHeader = token;
-        }
-
-        res.set('authentication-header', token);
-        return res.status(200).send({
-            token: token
-        });
-    }
+    return res.status(200).send({
+        token: token
+    });
 });
 
 export default authenticateRouter;
