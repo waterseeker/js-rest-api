@@ -1,6 +1,6 @@
 /**
  * Parses token from request header and finds matching authenticated user in Db if available.
- * Saves in res.locales for use in future middlewares.
+ * Saves in res.locals for use in future middlewares.
  *
  * @param {Object} req - Express req object
  * @param {Object} res - Express res object
