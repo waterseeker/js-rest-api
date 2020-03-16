@@ -9,6 +9,12 @@ info:
 tags:
 - name: user
   description: Operations about user
+- name: authentication
+  description: User authentication operations
+- name: logout
+  description: User logout
+- name: articles
+  description: Operations about articles
 paths:
   /api/user:
     post:
@@ -25,7 +31,7 @@ paths:
         required: true
       responses:
         201:
-          description: User created successfully
+          description: User created
           content:
             application/json:
               schema:
@@ -36,6 +42,108 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /api/authenticate:
+    post:
+      tags:
+      - authentication
+      summary: Authenticate a user
+      operationId: authenticateUser
+      requestBody:
+        description: User requesting authentication
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          description: User authenticated 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          description: Invalid login credentials supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Invalid login credentials supplied
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/logout:
+    post:
+      tags:
+      - logout
+      summary: Log a user out
+      operationId: logoutUser
+      requestBody:
+        description: User logging out
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          description: User logged out 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        401:
+          description: Invalid user session
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/articles:
+    post:
+      tags:
+      - articles
+      summary: Create an article
+      operationId: createArticle
+      requestBody:
+        description: Created article object
+        content:
+          'application/json':
+            schema:
+              $ref: '#/components/schemas/Article'
+        required: true
+      responses:
+        201:
+          description: Article created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: No visibility setting on article
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        401:
+          description: Invalid token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+      - articles
+      summary: Get articles
+      operationId: getArticles
+      responses:
+        200: 
+          description: Articles retrieved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
 components:
   schemas:
     User:
@@ -46,6 +154,19 @@ components:
         login:
           type: string
         password:
+          type: string
+    Article:
+      type: object
+      properties:
+        content:
+          type: string
+        visibility:
+          type: string
+        login:
+          type: string
+        title:
+          type: string
+        article_id:
           type: string
     Error:
       type: object
