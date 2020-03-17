@@ -23,7 +23,7 @@ paths:
       summary: Create a user
       operationId: createUser
       requestBody:
-        description: Created user object
+        description: User being created
         content:
           'application/json':
             schema:
@@ -32,12 +32,8 @@ paths:
       responses:
         201:
           description: User created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
         400:
-          description: Invalid payload supplied
+          description: You must supply a user_id, login, and password in the req.body
           content:
             application/json:
               schema:
@@ -49,11 +45,16 @@ paths:
       summary: Authenticate a user
       operationId: authenticateUser
       requestBody:
-        description: User requesting authentication
+        description: login and password passed in req.body
         content:
           'application/json':
             schema:
-              $ref: '#/components/schemas/User'
+              type: object
+              properties:
+                login:
+                  type: string
+                password:
+                  type: string
         required: true
       responses:
         200:
@@ -61,15 +62,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                type: object
+                properties:
+                  token:
+                    type: string
         401:
-          description: Invalid login credentials supplied
+          description: User was found in the database, but the password given in the req.body doesn't match what is in the database.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         404:
-          description: Invalid login credentials supplied
+          description: No user with that username was found in the database.
           content:
             application/json:
               schema:
@@ -80,20 +84,9 @@ paths:
       - logout
       summary: Log a user out
       operationId: logoutUser
-      requestBody:
-        description: User logging out
-        content:
-          'application/json':
-            schema:
-              $ref: '#/components/schemas/User'
-        required: true
       responses:
         200:
           description: User logged out 
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
         401:
           description: Invalid user session
           content:
@@ -116,12 +109,8 @@ paths:
       responses:
         201:
           description: Article created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
         400:
-          description: No visibility setting on article
+          description: "Invalid visibility parameter"
           content:
             application/json:
               schema:
@@ -143,7 +132,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Article'
+                $ref: '#/components/schemas/Articles'
 components:
   schemas:
     User:
@@ -168,6 +157,10 @@ components:
           type: string
         article_id:
           type: string
+    Articles:
+      type: array
+      items:
+        $ref: '#/components/schemas/Article'
     Error:
       type: object
       properties:
