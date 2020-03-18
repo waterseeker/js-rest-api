@@ -134,6 +134,17 @@
           "logout"
         ],
         "summary": "Log a user out",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "token",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "operationId": "logoutUser",
         "responses": {
           "200": {
@@ -159,12 +170,40 @@
         ],
         "summary": "Create an article",
         "operationId": "createArticle",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "activeUserId",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
         "requestBody": {
           "description": "Created article object",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Article"
+                "type": "object",
+                "properties": {
+                  "content": {
+                    "type": "string"
+                  },
+                  "visibility": {
+                    "type": "string"
+                  },
+                  "activeUserId": {
+                    "type": "string"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "article_id": {
+                    "type": "string"
+                  }
+                }
               }
             }
           },
@@ -208,7 +247,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Articles"
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "content": {
+                        "type": "string"
+                      },
+                      "visibility": {
+                        "type": "string"
+                      },
+                      "activeUserId": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "article_id": {
+                        "type": "string"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -233,51 +292,10 @@
           }
         }
       },
-      "Article": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "string"
-          },
-          "visibility": {
-            "type": "string"
-          },
-          "login": {
-            "type": "string"
-          },
-          "title": {
-            "type": "string"
-          },
-          "article_id": {
-            "type": "string"
-          }
-        }
-      },
-      "Articles": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Article"
-        }
-      },
       "Error": {
         "type": "object",
         "properties": {
           "error": {
-            "type": "string"
-          }
-        }
-      },
-      "ApiResponse": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type": {
-            "type": "string"
-          },
-          "message": {
             "type": "string"
           }
         }
