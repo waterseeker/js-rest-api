@@ -85,7 +85,7 @@ paths:
       summary: Log a user out
       parameters:
         - in: header
-          name: token
+          name: authentication-header
           schema:
             type: string
             format: uuid
@@ -108,7 +108,7 @@ paths:
       operationId: createArticle
       parameters:
         - in: header
-          name: activeUserId
+          name: authentication-header
           schema:
             type: string
             format: uuid
@@ -151,6 +151,13 @@ paths:
       - articles
       summary: Get articles
       operationId: getArticles
+      parameters:
+        - in: header
+          name: authentication-header
+          schema:
+            type: string
+            format: uuid
+          required: false
       responses:
         200: 
           description: Articles retrieved
@@ -163,9 +170,9 @@ paths:
                   properties:
                     content:
                       type: string
-                    visibility:
+                    author:
                       type: string
-                    activeUserId:
+                    visibility:
                       type: string
                     title:
                       type: string

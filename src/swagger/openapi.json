@@ -137,7 +137,7 @@
         "parameters": [
           {
             "in": "header",
-            "name": "token",
+            "name": "authentication-header",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -173,7 +173,7 @@
         "parameters": [
           {
             "in": "header",
-            "name": "activeUserId",
+            "name": "authentication-header",
             "schema": {
               "type": "string",
               "format": "uuid"
@@ -241,6 +241,17 @@
         ],
         "summary": "Get articles",
         "operationId": "getArticles",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authentication-header",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": false
+          }
+        ],
         "responses": {
           "200": {
             "description": "Articles retrieved",
@@ -254,10 +265,10 @@
                       "content": {
                         "type": "string"
                       },
-                      "visibility": {
+                      "author": {
                         "type": "string"
                       },
-                      "activeUserId": {
+                      "visibility": {
                         "type": "string"
                       },
                       "title": {
