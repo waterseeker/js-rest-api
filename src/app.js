@@ -4,6 +4,8 @@ import express from 'express';
 import apiRouter from './routes';
 import db from './db'
 import authenticateUser from './middlewares/authenticate-user'
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./swagger/openapi.json";
 
 const app = express();
 
@@ -18,5 +20,6 @@ app.use(
     })
 );
 app.use('/api', authenticateUser, apiRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 export default app;
