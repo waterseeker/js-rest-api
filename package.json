@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint . --fix",
+    "pretest": "npm run lint",
     "start": "nodemon --exec babel-node index.js",
     "test": "ava --verbose"
   },
@@ -41,7 +43,5 @@
       "@babel/register",
       "@babel/polyfill"
     ]
-  },
-  "lint": "eslint . --fix",
-  "pretest": "npm run lint"
+  }
 }
