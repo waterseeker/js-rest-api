@@ -128,7 +128,7 @@ paths:
                   type: string
                 title:
                   type: string
-                article_id:
+                articleId:
                   type: string
         required: true
       responses:
@@ -176,7 +176,7 @@ paths:
                       type: string
                     title:
                       type: string
-                    article_id:
+                    articleId:
                       type: string
 components:
   schemas:
