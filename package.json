@@ -41,5 +41,7 @@
       "@babel/register",
       "@babel/polyfill"
     ]
-  }
+  },
+  "lint": "eslint . --fix",
+  "pretest": "npm run lint"
 }
