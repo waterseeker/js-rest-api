@@ -52,7 +52,7 @@ The API should support the following calls:
         POST - creates an article consisting of title, content, and visibility (public, private, or logged_in).
             Only an authenticated user can create articles.
             Request Body(JSON):
-                article_id: string
+                articleId: string
                 title: string
                 content: string
                 visibility: 'public' | 'private' | 'logged_in':
@@ -71,7 +71,7 @@ The API should support the following calls:
                     *  the sender's articles
                     otherwise return only public articles.
                     An article object consists of:
-                        article_id, title, content, and user_id which are all strings
+                        articleId, title, content, and user_id which are all strings
                         and the visibility field which is public, private, or logged_in
                     The articles can appear in any order
         
@@ -112,11 +112,11 @@ and then call POST /api/authenticate with the same login and password, the respo
 Example 2
 
 If the user from Example 1 creates the following articles:
-{ "article_id": "art1", "title": "title1", "content": "c1", "visibility": "public" }
-{ "article_id": "art2", "title": "title2", "content": "c2", "visibility": "private" }
-{ "article_id": "art3", "title": "title3", "content": "c3", "visibility": "logged_in" }
+{ "articleId": "art1", "title": "title1", "content": "c1", "visibility": "public" }
+{ "articleId": "art2", "title": "title2", "content": "c2", "visibility": "private" }
+{ "articleId": "art3", "title": "title3", "content": "c3", "visibility": "logged_in" }
 then called GET /api/articles(with no token passed on as a request's header) gives only one article object:
-[{ "article_id": "art1", "title": "title1", "content": "c1", "visibility": "public", "user_id": "1" }]
+[{ "articleId": "art1", "title": "title1", "content": "c1", "visibility": "public", "user_id": "1" }]
 
 With a valid token passed on as the authentication-header header, all 3 article objects should be returned. 
 
@@ -127,8 +127,8 @@ Then, if you then:
 
 we should expect the following result
 [
-    { "article_id": "art1", "title": "title1", "content": "c1", "visibility": "public", "user_id": "1" },
-    { "article_id": "art3", "title": "title3", "content": "c3", "visibility": "logged_in", "user_id": "1" }
+    { "articleId": "art1", "title": "title1", "content": "c1", "visibility": "public", "user_id": "1" },
+    { "articleId": "art3", "title": "title3", "content": "c3", "visibility": "logged_in", "user_id": "1" }
 ]
 
 Example 3
