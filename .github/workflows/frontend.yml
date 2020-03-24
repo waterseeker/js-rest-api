@@ -21,14 +21,18 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 12.x
-    - run: cd client
     - name: Install dependencies
       run: npm ci
+      working-directory: ./client
     - name: Lint
       run: npm run lint
+      working-directory: ./client
     - name: Build
       run: npm run build -- --prod
+      working-directory: ./client
     - name: Test
       run: npm test -- --configuration=ci
+      working-directory: ./client
     - name: E2E
       run: npm run e2e -- --configuration=ci
+      working-directory: ./client
