@@ -127,6 +127,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "client:serve:production"
+            },
+            "ci": {
+              "protractorConfig": "e2e/protractor-ci.conf.js"
             }
           }
         }
