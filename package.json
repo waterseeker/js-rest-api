@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "client": "cd client && npm start",
+    "dev": "concurrently -k -n client,server -c green,blue \"npm run client\" \"npm start\"",
     "lint": "eslint . --fix",
     "pretest": "npm run lint",
     "start": "nodemon --exec babel-node index.js",
@@ -20,6 +22,7 @@
     "@babel/preset-env": "^7.8.7",
     "@babel/register": "^7.8.6",
     "ava": "^3.4.0",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.1",
