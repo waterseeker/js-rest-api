@@ -1,5 +1,43 @@
+<!-- This component could be re-factored so it is a parent container for user-realated views and make the pieces their own components -->
 <!-- view while not-logged in -->
-<div *ngIf="!user.authenticated"></div>
-<h1>{{user}}</h1>
+<div *ngIf="!user.isAuthenticated" class="container">
+    <!-- create account form -->
+    <h1>Please Create an Account</h1>
+    <form>
+      <div class="form-group">
+        <label for="login">Name</label>
+        <input type="text" class="form-control" id="login" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="text" class="form-control" id="password">
+      </div>
+
+      <div class="form-group">
+        <label for="userId">User Id</label>
+        <input type="text" class="form-control" id="userId">
+      </div>
+
+      <button type="submit" class="btn btn-success">Submit</button>
+
+    </form>
+    <!-- article list -->
+    <div class="container">
+        <ul>
+            <li>This will contain an *ngFor list of accessible articles</li>
+            <li>Article 2</li>
+            <li>Article 3</li>
+        </ul>
+    </div>
+    <!-- login button -->
+    <div>
+        <button>Login</button>
+    </div>
+</div>
 <!-- view while logged in -->
-<div *ngIf="user.authenticated"></div>
+<div *ngIf="user.isAuthenticated">
+    <h1>Welcome back {{user.login}}!</h1>
+</div>
+<!-- for all users -->
+
