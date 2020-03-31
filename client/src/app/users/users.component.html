@@ -1,0 +1,5 @@
+<!-- view while not-logged in -->
+<div *ngIf="!user.authenticated"></div>
+<h1>{{user}}</h1>
+<!-- view while logged in -->
+<div *ngIf="user.authenticated"></div>
