@@ -1,1 +1,9 @@
-<p>articles works!</p>
+    <!-- article list -->
+    <div class="container">
+        <h2>Articles</h2>
+        <ul class="articles">
+            <li *ngFor="let article of articles" (click)="onSelect(article)">
+                {{article.title}} by {{article.author}}
+            </li>
+        </ul>
+    </div>
