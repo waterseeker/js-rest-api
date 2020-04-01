@@ -1,4 +1,4 @@
-import { Article } from '../interfaces/article';
+import { Article } from './interfaces/article';
 
 export const ARTICLES: Article[] = [
     { content: 'here is some content 1', visibility: 'public', author: '42', title: 'testArticle1', articleId: 'articleid1' },

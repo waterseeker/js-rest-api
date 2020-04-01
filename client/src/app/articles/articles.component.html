@@ -3,7 +3,11 @@
         <h2>Articles</h2>
         <ul class="articles">
             <li *ngFor="let article of articles" (click)="onSelect(article)">
-                {{article.title}} by {{article.author}}
+                <h3>{{article.title}} by {{article.author}}</h3>
+                <h4>{{article.content | slice:0:50}}</h4> 
+                <button>Read More</button>
             </li>
         </ul>
     </div>
+    <!-- article detail -->
+    <app-article-detail *ngIf="selectedArticle" [article]="selectedArticle">test</app-article-detail>

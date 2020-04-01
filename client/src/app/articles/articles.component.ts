@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Article } from '../interfaces/article';
 import { ARTICLES } from '../mock-articles';
 
 @Component({
@@ -8,6 +9,7 @@ import { ARTICLES } from '../mock-articles';
 })
 export class ArticlesComponent implements OnInit {
   articles = ARTICLES;
+  selectedArticle: Article;
   constructor() { }
 
   onSelect(article: Article): void {
