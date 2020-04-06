@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Article } from './interfaces/article';
-import { ARTICLES } from './mock-articles';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
+import { MessageService } from './message.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
   private articlesUrl = 'http://localhost:3000/api/articles';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private messageService: MessageService) {}
 
   getArticles(): Observable<Article[]> {
     return this.http.get<Article[]>(this.articlesUrl)
       .pipe(
-        // tap(_ => this.log('fetched articles')),
+        tap(_ => this.log('fetched articles')),
           catchError(this.handleError<Article[]>('getArticles', [])));
+  }
+  private log(message: string) {
+    this.messageService.add(`ArticleService: ${message}`);
   }
   /**
    * Handle Http operation that failed.
@@ -30,7 +34,7 @@ export class ArticleService {
       console.error(error); // log to console instead
 
       // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
+      this.log(`${operation} failed: ${error.message}`);
 
       // Let the app keep running by returning an empty result.
       return of(result as T);
