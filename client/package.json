@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "dev": "concurrently -k -n client,server -c green,blue \"npm run start:client\" \"npm run start:dev\"",
+    "dev": "concurrently -k -n client,server -c green,blue \"npm run start:client\" \"npm run start:dev\" && ng e2e",
     "start:client": "npm start",
     "start:dev": "cd .. && npm start --watch"
   },
