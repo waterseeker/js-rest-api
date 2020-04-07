@@ -7,7 +7,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "dev": "concurrently -k -n client,server -c green,blue \"npm run start:client\" \"npm run start:dev\"",
+    "start:client": "cd client && npm start",
+    "start:dev": "cd .. && nest start --watch"
   },
   "private": true,
   "dependencies": {
