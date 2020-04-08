@@ -33,6 +33,6 @@ jobs:
       working-directory: ./client
     - name: E2E
       run: 
-        npm run start:dev
-        npm run e2e -- --configuration=ci
+        npm run dev
+        # npm run e2e -- --configuration=ci
       working-directory: ./client
