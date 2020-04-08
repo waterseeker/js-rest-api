@@ -9,8 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
 
-    "dev": "concurrently -k -n server,client -c green,blue \"npm run start:dev\" \"npm run e2e -- --configuration=ci\"",
-    "start:dev": "cd .. && npm start --watch"
+    "dev": "concurrently -k -n server,client -c green,blue \"npm run start:backend\" \"npm run e2e\"",
+    "start:backend": "cd .. && npm start --watch"
   },
   "private": true,
   "dependencies": {
