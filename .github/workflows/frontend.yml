@@ -31,8 +31,9 @@ jobs:
     - name: Test
       run: npm test -- --configuration=ci
       working-directory: ./client
-    - name: Install backend dependencies
-      run: cd .. && npm ci
+    - name: Install frontend dependencies
+      run: npm ci
+      working-directory: ./client
     - name: E2E
       run: 
         npm run dev
