@@ -1,7 +1,6 @@
 const config = require('./protractor.conf').config;
 
-config.ignoreUncaughtExceptions = true;
-config.chromeDriver = process.env.CHROMEWEBDRIVER;
+config.chromeDriver = '/usr/bin/';
 config.capabilities = {
   browserName: 'chrome',
   chromeOptions: {
