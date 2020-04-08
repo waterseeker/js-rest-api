@@ -33,9 +33,11 @@ jobs:
     - name: Test
       run: npm test -- --configuration=ci
       working-directory: ./client
-    - name: E2E
-      run:  |
-            npm ci
-            cd .. && npm ci
-            cd client && npm run e2etest
+    - name: E2E Install frontend dependencies
+      run: npm ci
+      working-directory: ./client
+    - name: E2E Install backend dependencies
+      run: npm ci
+    - name: E2E Tests From Client
+      run: npm run e2etest
       working-directory: ./client
