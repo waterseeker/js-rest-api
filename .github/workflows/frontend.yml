@@ -37,6 +37,5 @@ jobs:
       run:  |
             npm ci
             cd .. && npm ci
-            npm run dev
-        # npm run e2e -- --configuration=ci
+            npm run e2e
       working-directory: ./client
