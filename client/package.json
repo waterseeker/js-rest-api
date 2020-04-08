@@ -9,8 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
 
-    "e2etest": "concurrently -k -n server,client -c green,blue \"npm run start:backend\" \"npm run e2e -- --configuration=ci\"",
-    "start:backend": "cd .. && npm start"
+    "e2etest": "npm run e2e -- --configuration=ci"
   },
   "private": true,
   "dependencies": {
