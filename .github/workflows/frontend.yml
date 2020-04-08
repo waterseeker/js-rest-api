@@ -37,5 +37,5 @@ jobs:
       run:  |
             npm ci
             cd .. && npm ci
-            npm run e2e
+            npm run e2etest
       working-directory: ./client

@@ -7,8 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "e2e": "ng e2e",
 
-    "e2e": "concurrently -k -n server,client -c green,blue \"npm run start:backend\" \"ng e2e -- --configuration=ci\"",
+    "e2etest": "concurrently -k -n server,client -c green,blue \"npm run start:backend\" \"npm run e2e -- --configuration=ci\"",
     "start:backend": "cd .. && npm start"
   },
   "private": true,
