@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "concurrently -k -n client,server -c green,blue \"npm run dev:client\" \"npm start:dev\"",
+    "dev": "concurrently -k -n client,server -c green,blue \"npm run start:client\" \"npm run start:dev\"",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

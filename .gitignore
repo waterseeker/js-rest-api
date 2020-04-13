@@ -19,6 +19,7 @@ lerna-debug.log*
 
 # IDEs and editors
 /.idea
+.vscode/
 .project
 .classpath
 .c9/
@@ -28,10 +29,6 @@ lerna-debug.log*
 
 # IDE - VSCode
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
 
 # dotenv environment variables file
 .env
