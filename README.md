@@ -1,5 +1,10 @@
 # js-rest-api
-
+To run the app locally:
+    1. Navigate to the root and run npm install.
+    2. Navigate to the /client folder and run npm install
+    3. From the root, run npm run dev. This should start the backend server on port 3000 and you should
+        see the frontend app running at localhost:4200.
+      
 This is an exercise in creating a node/express API that has grown out of a code challenge for a job application. 
 Basic instructions were to create a RESTful API using node/express with no frontend.
 There are Users and Articles. 
