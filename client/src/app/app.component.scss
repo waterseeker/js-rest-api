@@ -1,22 +1,74 @@
 /* Application-wide Styles */
+$white: #fff !default;
+$gray: #f9f9f9 !default;
+$accent-color: #145474 !default;
+
+.header { grid-area: header; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+
+.grid-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: "header"
+                       "main"
+                       "footer";
+}
+
+@media (min-width: 540px) {
+  .grid-container {
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "header header header"
+                         "main main main"
+                         "footer footer footer";
+  }
+}
+
 h1 {
-    color: #369;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 250%;
-  }
-  h2, h3 {
-    color: #444;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
-  }
-  body {
-    margin: 2em;
-  }
-  body, input[type="text"], button {
-    color: #333;
-    font-family: Cambria, Georgia;
-  }
-  /* everywhere else */
-  * {
-    font-family: Arial, Helvetica, sans-serif;
-  }
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+h2,
+h3 {
+  color: #444;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: lighter;
+}
+body {
+  margin: 2em;
+}
+body,
+input[type="text"],
+button {
+  color: #333;
+  font-family: Cambria, Georgia;
+}
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+// Visual styles
+.page {
+  background-color: $gray;
+}
+
+.header,
+.footer {
+  padding: 20px;
+  background-color: $accent-color;
+  color: $white;
+  text-align: center;
+}
+
+.main {
+  padding: 25px;
+}
+
+.sidebar {
+  padding: 25px;
+  background-color: darken($gray, 3%);
+}

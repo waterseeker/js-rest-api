@@ -10,6 +10,7 @@ import { ArticlesComponent } from './articles/articles.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MessagesComponent } from './messages/messages.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MessagesComponent } from './messages/messages.component';
     ArticlesComponent,
     ArticleDetailComponent,
     NavbarComponent,
-    MessagesComponent
+    MessagesComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
