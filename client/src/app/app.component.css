@@ -1,3 +1,27 @@
+.header { grid-area: header; }
+.main { grid-area: main; }
+.footer { grid-area: footer; }
+
+.grid-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: auto auto auto;
+  grid-template-areas: "header"
+                       "main"
+                       "footer";
+}
+
+@media (min-width: 540px) {
+  .grid-container {
+    grid-template-columns: 150px 1fr 150px;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "header header header"
+                         "main main main"
+                         "footer footer footer";
+  }
+}
+
 h1 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
